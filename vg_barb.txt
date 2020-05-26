@@ -1,0 +1,248 @@
+==25433== Memcheck, a memory error detector
+==25433== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==25433== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==25433== Command: ./barbr
+==25433== 
+--25433-- Valgrind options:
+--25433--    --leak-check=full
+--25433--    --show-reachable=yes
+--25433--    --track-origins=yes
+--25433--    -v
+--25433-- Contents of /proc/version:
+--25433--   Linux version 2.6.32-36-generic (buildd@allspice) (gcc version 4.4.3 (Ubuntu 4.4.3-4ubuntu5) ) #79-Ubuntu SMP Tue Nov 8 22:29:53 UTC 2011
+--25433-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--25433-- Page sizes: currently 4096, max supported 4096
+--25433-- Valgrind library directory: /home/nutria/mylocal/lib/valgrind
+--25433-- Reading syms from /mnt/sda3/home/nutria/essentold/c_circus/cair/barbr (0x400000)
+--25433-- Reading syms from /lib/ld-2.11.1.so (0x4000000)
+--25433--   Considering /lib/ld-2.11.1.so ..
+--25433--   .. CRC mismatch (computed 14d842e7 wanted b05c9aeb)
+--25433--   Considering /usr/lib/debug/lib/ld-2.11.1.so ..
+--25433--   .. CRC is valid
+--25433-- Reading syms from /home/nutria/mylocal/lib/valgrind/memcheck-amd64-linux (0x38000000)
+--25433--    object doesn't have a dynamic symbol table
+--25433-- Reading suppressions file: /home/nutria/mylocal/lib/valgrind/default.supp
+==25433== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-25433-by-nutria-on-???
+==25433== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-25433-by-nutria-on-???
+==25433== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-25433-by-nutria-on-???
+==25433== 
+==25433== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==25433== don't want to do, unless you know exactly what you're doing,
+==25433== or are doing some strange experiment):
+==25433==   /home/nutria/mylocal/lib/valgrind/../../bin/vgdb --pid=25433 ...command...
+==25433== 
+==25433== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==25433==   /path/to/gdb ./barbr
+==25433== and then give GDB the following command
+==25433==   target remote | /home/nutria/mylocal/lib/valgrind/../../bin/vgdb --pid=25433
+==25433== --pid is optional if only one valgrind process is running
+==25433== 
+--25433-- REDIR: 0x4018350 (strlen) redirected to 0x38045c57 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--25433-- Reading syms from /home/nutria/mylocal/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a22000)
+--25433-- Reading syms from /home/nutria/mylocal/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c24000)
+--25433-- REDIR: 0x40181c0 (index) redirected to 0x4c28b00 (index)
+--25433-- REDIR: 0x4018240 (strcmp) redirected to 0x4c29490 (strcmp)
+--25433-- Reading syms from /usr/lib/libcairo.so.2.10800.10 (0x4e2f000)
+--25433--   Considering /usr/lib/libcairo.so.2.10800.10 ..
+--25433--   .. CRC mismatch (computed f387eaf6 wanted 2c2b2ce8)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /lib/libm-2.11.1.so (0x50b2000)
+--25433--   Considering /lib/libm-2.11.1.so ..
+--25433--   .. CRC mismatch (computed 043548c3 wanted a081b93d)
+--25433--   Considering /usr/lib/debug/lib/libm-2.11.1.so ..
+--25433--   .. CRC is valid
+--25433-- Reading syms from /lib/libc-2.11.1.so (0x5335000)
+--25433--   Considering /lib/libc-2.11.1.so ..
+--25433--   .. CRC mismatch (computed 51f09164 wanted 9cdff916)
+--25433--   Considering /usr/lib/debug/lib/libc-2.11.1.so ..
+--25433--   .. CRC is valid
+--25433-- Reading syms from /usr/lib/libpixman-1.so.0.16.4 (0x56b8000)
+--25433--   Considering /usr/lib/libpixman-1.so.0.16.4 ..
+--25433--   .. CRC mismatch (computed d9ca9171 wanted 78cee967)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libfreetype.so.6.3.22 (0x5911000)
+--25433--   Considering /usr/lib/libfreetype.so.6.3.22 ..
+--25433--   .. CRC mismatch (computed 8d24e7c6 wanted ee4e26e4)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libfontconfig.so.1.4.4 (0x5b97000)
+--25433--   Considering /usr/lib/libfontconfig.so.1.4.4 ..
+--25433--   .. CRC mismatch (computed 6eb71fd7 wanted 3e70f89d)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libdirectfb-1.2.so.0.8.0 (0x5dcc000)
+--25433--   Considering /usr/lib/libdirectfb-1.2.so.0.8.0 ..
+--25433--   .. CRC mismatch (computed 06e105a6 wanted feb686e6)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libfusion-1.2.so.0.8.0 (0x604f000)
+--25433--   Considering /usr/lib/libfusion-1.2.so.0.8.0 ..
+--25433--   .. CRC mismatch (computed 762b3b51 wanted a599a15f)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libdirect-1.2.so.0.8.0 (0x6259000)
+--25433--   Considering /usr/lib/libdirect-1.2.so.0.8.0 ..
+--25433--   .. CRC mismatch (computed 871e1feb wanted f8c94248)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /lib/libpthread-2.11.1.so (0x6472000)
+--25433--   Considering /lib/libpthread-2.11.1.so ..
+--25433--   .. CRC mismatch (computed 74530e89 wanted 9c52fb5e)
+--25433--   Considering /usr/lib/debug/lib/libpthread-2.11.1.so ..
+--25433--   .. CRC is valid
+--25433-- Reading syms from /lib/libpng12.so.0.42.0 (0x668f000)
+--25433--   Considering /lib/libpng12.so.0.42.0 ..
+--25433--   .. CRC mismatch (computed 63ff5e08 wanted e9bebedc)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libxcb-render-util.so.0.0.0 (0x68b6000)
+--25433--   Considering /usr/lib/libxcb-render-util.so.0.0.0 ..
+--25433--   .. CRC mismatch (computed d0cc959e wanted f2505541)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libxcb-render.so.0.0.0 (0x6aba000)
+--25433--   Considering /usr/lib/libxcb-render.so.0.0.0 ..
+--25433--   .. CRC mismatch (computed 80bafe01 wanted 8a92c7e0)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libxcb.so.1.1.0 (0x6cc3000)
+--25433--   Considering /usr/lib/libxcb.so.1.1.0 ..
+--25433--   .. CRC mismatch (computed 85801fb4 wanted 970f95a5)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libXrender.so.1.3.0 (0x6edf000)
+--25433--   Considering /usr/lib/libXrender.so.1.3.0 ..
+--25433--   .. CRC mismatch (computed f98e58ff wanted 14e0cafa)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libX11.so.6.3.0 (0x70e9000)
+--25433--   Considering /usr/lib/libX11.so.6.3.0 ..
+--25433--   .. CRC mismatch (computed 8ec7a58a wanted 54bcb744)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /lib/libz.so.1.2.3.3 (0x741f000)
+--25433--   Considering /lib/libz.so.1.2.3.3 ..
+--25433--   .. CRC mismatch (computed 86f1fa27 wanted 5f1ca823)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /lib/libexpat.so.1.5.2 (0x7636000)
+--25433--   Considering /lib/libexpat.so.1.5.2 ..
+--25433--   .. CRC mismatch (computed 9f82a007 wanted 6e3bf695)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /lib/libdl-2.11.1.so (0x785f000)
+--25433--   Considering /lib/libdl-2.11.1.so ..
+--25433--   .. CRC mismatch (computed b9cf0b07 wanted a7cc336e)
+--25433--   Considering /usr/lib/debug/lib/libdl-2.11.1.so ..
+--25433--   .. CRC is valid
+--25433-- Reading syms from /usr/lib/libXau.so.6.0.0 (0x7a63000)
+--25433--   Considering /usr/lib/libXau.so.6.0.0 ..
+--25433--   .. CRC mismatch (computed e52a5817 wanted b3cc5c76)
+--25433--    object doesn't have a symbol table
+--25433-- Reading syms from /usr/lib/libXdmcp.so.6.0.0 (0x7c67000)
+--25433--   Considering /usr/lib/libXdmcp.so.6.0.0 ..
+--25433--   .. CRC mismatch (computed 94fa5a42 wanted 687e8eb2)
+--25433--    object doesn't have a symbol table
+--25433-- REDIR: 0x53b9b00 (__GI_strrchr) redirected to 0x4c28920 (__GI_strrchr)
+--25433-- REDIR: 0x53b1520 (malloc) redirected to 0x4c27b08 (malloc)
+--25433-- REDIR: 0x53b3390 (calloc) redirected to 0x4c26dcb (calloc)
+--25433-- REDIR: 0x53b9aa0 (strncpy) redirected to 0x4a225dc (_vgnU_ifunc_wrapper)
+--25433-- REDIR: 0x545fa60 (???) redirected to 0x4c29070 (strncpy)
+--25433-- REDIR: 0x53bd270 (strchrnul) redirected to 0x4c2ac50 (strchrnul)
+--25433-- REDIR: 0x53b8040 (__GI_strlen) redirected to 0x4c28eb0 (__GI_strlen)
+--25433-- REDIR: 0x53bb3b0 (mempcpy) redirected to 0x4c2acc0 (mempcpy)
+--25433-- REDIR: 0x53b7a60 (strcpy) redirected to 0x4a225dc (_vgnU_ifunc_wrapper)
+--25433-- REDIR: 0x545f040 (???) redirected to 0x4c28ed0 (strcpy)
+--25433-- REDIR: 0x53b6360 (strcat) redirected to 0x4c28b40 (strcat)
+--25433-- REDIR: 0x53b2e10 (free) redirected to 0x4c27718 (free)
+--25433-- REDIR: 0x53ba880 (memset) redirected to 0x4c2a980 (memset)
+--25433-- REDIR: 0x53bbc90 (memcpy) redirected to 0x4c29a50 (memcpy)
+ddbrown	dbrown	bbrown	nbrown	
+0.1569	0.3137	0.4706	0.6275	
+0.0902	0.1765	0.2667	0.3529	
+0.0431	0.0863	0.1294	0.1725	
+ddbrown_00	ddbrown_01	ddbrown_02	ddbrown_03	ddbrown_04	ddbrown_05	ddbrown_06	ddbrown_07	
+0.1569	0.2017	0.2465	0.2913	0.3361	0.3810	0.4258	0.4706	
+0.0902	0.1154	0.1406	0.1658	0.1910	0.2162	0.2415	0.2667	
+0.0431	0.0555	0.0678	0.0801	0.0924	0.1048	0.1171	0.1294	
+==25433== 
+==25433== HEAP SUMMARY:
+==25433==     in use at exit: 8,832 bytes in 8 blocks
+==25433==   total heap usage: 64 allocs, 56 frees, 1,227,534 bytes allocated
+==25433== 
+==25433== Searching for pointers to 8 not-freed blocks
+==25433== Checked 240,008 bytes
+==25433== 
+==25433== 152 bytes in 1 blocks are still reachable in loss record 1 of 6
+==25433==    at 0x4C27B8A: malloc (vg_replace_malloc.c:263)
+==25433==    by 0x4E55755: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E4721B: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E41919: cairo_create (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x401381: main (barbr.c:114)
+==25433== 
+==25433== 456 bytes in 3 blocks are still reachable in loss record 2 of 6
+==25433==    at 0x4C27B8A: malloc (vg_replace_malloc.c:263)
+==25433==    by 0x4E55B76: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5B973: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5C9BB: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E45499: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E4015F: cairo_fill_preserve (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E40178: cairo_fill (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4014B1: main (barbr.c:126)
+==25433== 
+==25433== 2,056 bytes in 1 blocks are still reachable in loss record 3 of 6
+==25433==    at 0x4C27B8A: malloc (vg_replace_malloc.c:263)
+==25433==    by 0x56CE2AD: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E6BC7: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E8AF8: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56F35D8: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56FA878: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7777: pixman_fill (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7E93: pixman_image_fill_rectangles (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x4E48C0B: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D226: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D3EE: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60006: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433== 
+==25433== 2,056 bytes in 1 blocks are still reachable in loss record 4 of 6
+==25433==    at 0x4C27B8A: malloc (vg_replace_malloc.c:263)
+==25433==    by 0x56CE2AD: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E8B00: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56F35D8: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56FA878: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7777: pixman_fill (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7E93: pixman_image_fill_rectangles (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x4E48C0B: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D226: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D3EE: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60006: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60223: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433== 
+==25433== 2,056 bytes in 1 blocks are still reachable in loss record 5 of 6
+==25433==    at 0x4C27B8A: malloc (vg_replace_malloc.c:263)
+==25433==    by 0x56CE2AD: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56F35E0: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56FA878: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7777: pixman_fill (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7E93: pixman_image_fill_rectangles (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x4E48C0B: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D226: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D3EE: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60006: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60223: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5CA5E: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433== 
+==25433== 2,056 bytes in 1 blocks are still reachable in loss record 6 of 6
+==25433==    at 0x4C27B8A: malloc (vg_replace_malloc.c:263)
+==25433==    by 0x56CE2AD: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56FA880: ??? (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7777: pixman_fill (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x56E7E93: pixman_image_fill_rectangles (in /usr/lib/libpixman-1.so.0.16.4)
+==25433==    by 0x4E48C0B: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D226: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5D3EE: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60006: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E60223: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E5CA5E: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433==    by 0x4E45499: ??? (in /usr/lib/libcairo.so.2.10800.10)
+==25433== 
+==25433== LEAK SUMMARY:
+==25433==    definitely lost: 0 bytes in 0 blocks
+==25433==    indirectly lost: 0 bytes in 0 blocks
+==25433==      possibly lost: 0 bytes in 0 blocks
+==25433==    still reachable: 8,832 bytes in 8 blocks
+==25433==         suppressed: 0 bytes in 0 blocks
+==25433== 
+==25433== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--25433-- 
+--25433-- used_suppression:      2 U1004-ARM-_dl_relocate_object
+--25433-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==25433== 
+==25433== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
