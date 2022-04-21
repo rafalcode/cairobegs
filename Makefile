@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
 SPECINC=-I/home/nutria/mylocal/include
-EXECUTABLES=sq arc2 binodots binodot2 spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr
+EXECUTABLES=sq arc2 arc3 binodots binodot2 spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam
 
 # NOTES:
 # 	setsourcegradient.c is gone. You'll need to download it once again, as it showed the way cairo handles gradients
@@ -176,9 +176,14 @@ rects2: rects2.c
 rect16: rect16.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
+cirs0: cirs0.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
 # OK; via rectangles, which may not be the best thing, putting names into rectangles
 # note the 16 colors are the .Xdefaults colors.
 rectnam: rectnam.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+cirnam: cirnam.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # Takes the colour triangles further, now trying to arrive at nice (cute)
