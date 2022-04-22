@@ -65,6 +65,7 @@ int main (int argc, char *argv[])
     cairo_t *cr;
     float cb2=(float)CBSZ/2.;
     float rb2=(float)RBSZ/2.;
+    float lwidth=3.0;
 
     surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, IMWIDTH, IMHEIGHT);
     cr = cairo_create (surface);
@@ -79,26 +80,31 @@ int main (int argc, char *argv[])
     cairo_font_extents_t fe;
     cairo_text_extents_t te;
 
+    cairo_set_line_width(cr, lwidth);
+
     int i, j, k;
     for (i=0; i<RBNUM; i++)
         for (j=0; j<CBNUM; j++) { /* i and j serve as our block indices */
             k=CBNUM*i+j+2;
             colsf = norfloatify(scheme+k);
 
-            cairo_set_source_rgb(cr, colsf->rgb[0], colsf->rgb[1], colsf->rgb[2]);
+            // cairo_set_source_rgb(cr, colsf->rgb[0], colsf->rgb[1], colsf->rgb[2]);
             // cairo_rectangle (cr, CBSZ*j+BKLMARG, RBSZ*i+BKTMARG, CBSZ-BKLMARG-BKRMARG, RBSZ-BKTMARG-BKBMARG);
-            cairo_arc(cr, CBSZ*j+cb2+BKLMARG, RBSZ*i+rb2+BKTMARG, cb2, 0, 2*M_PI);
-            cairo_fill (cr);
+            cairo_new_sub_path(cr);
+            cairo_arc(cr, CBSZ*j+cb2+BKLMARG, RBSZ*i+rb2+BKTMARG, cb2*0.75, 0, 2*M_PI);
+            // cairo_fill(cr);
+            cairo_set_source_rgb(cr, 0.6, 0.4, .2);
+            cairo_stroke(cr);
             /*  text section */
             cairo_text_extents (cr, colsf->nam, &te);
             cairo_move_to (cr, (CBSZ*j+CBSZ/2) - te.x_bearing - te.width/2, (RBSZ*i + RBSZ/2) - fe.descent + fe.height/2);
-            cairo_set_source_rgb(cr, 0.3, 0.2, .2);
+            // cairo_set_source_rgb(cr, 0.6, 0.4, .2);
             cairo_show_text (cr, colsf->nam);
             free(colsf);
         }
 
     /* Write output and clean up */
-    cairo_surface_write_to_png (surface, "rectnam.png");
+    cairo_surface_write_to_png (surface, "cirnam.png");
     cairo_destroy (cr);
     cairo_surface_destroy (surface);
 
