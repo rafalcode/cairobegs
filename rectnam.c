@@ -14,8 +14,8 @@
 #define IMTMARG 40
 
 /* principal image and block settings */
-#define IMWIDTH 640
-#define IMHEIGHT 640
+#define IMWIDTH 1920
+#define IMHEIGHT 1080
 #define CBNUM 4 /* number of column bands */
 #define RBNUM CBNUM /* number of row-bands */
 

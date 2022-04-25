@@ -1,12 +1,12 @@
 /* this will take a round clip of a png file */
 #include <cairo/cairo.h>
+#include <cairo/cairo-pdf.h>
 #include <math.h>
 #include <stdlib.h>
 
 int main (int argc, char *argv[])
 {
-    int width=640, height=480;
-    cairo_surface_t surface = cairo_pdf_surface_create ("teiest.pdf", width, height);
+    cairo_surface_t *surface = cairo_pdf_surface_create ("teiest.pdf", 597.276, 841.89);
     cairo_t *cr = cairo_create (surface);
 
     cairo_surface_t *image = cairo_image_surface_create_from_png("gish.png");
@@ -33,9 +33,9 @@ int main (int argc, char *argv[])
     pos_y += delta[1];
 
     cairo_set_source_surface(cr, image, 1, 1);
-    cairo_arc(cr, pos_x, pos_y, radius, 0, 2*M_PI);
-    cairo_clip(cr);
-    cairo_paint(cr);
+    // cairo_arc(cr, pos_x, pos_y, radius, 0, 2*M_PI);
+    // cairo_clip(cr);
+    // cairo_paint(cr);
 
     cairo_destroy(cr);
     cairo_surface_destroy (surface);

@@ -8,8 +8,8 @@
 /* principal image and block settings */
 #define IMWIDTH 640
 #define IMHEIGHT IMWIDTH
-#define BKXNUM 4 /* number of blocks in vertical direction */
-#define BKYNUM BKXNUM
+#define BKXNUM 8 /* number of blocks in vertical direction */
+#define BKYNUM 6
 
 /* derived settings */
 #define BKXDIM IMWIDTH/BKXNUM
