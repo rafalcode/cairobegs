@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
 SPECINC=-I/home/nutria/mylocal/include
-EXECUTABLES=sq arc2 arc3 binodots binodot2 spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0
+EXECUTABLES=sq arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0
 
 # NOTES:
 # 	setsourcegradient.c is gone. You'll need to download it once again, as it showed the way cairo handles gradients
@@ -93,6 +93,9 @@ lintx2: lintx2.c
 sevshap: sevshap.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
+# spiro inspired?
+spir: spir.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 # An attempt to use loops to draw 
 spir2: spir2.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}

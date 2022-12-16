@@ -1,3 +1,5 @@
+// this is the rotate ellipses to prodcue nicish shape
+// there are nicer, but this one convinces as a spirograph ok
 #include <cairo/cairo.h>
 #include <math.h>
 #include <stdlib.h>
