@@ -75,7 +75,7 @@ int main (int argc, char *argv[])
     }
 
     cairo_destroy(cr);
-    cairo_surface_write_to_png (surface, "dots.png");
+    cairo_surface_write_to_png (surface, "cirs3.png");
     cairo_surface_destroy (surface);
 
     for(i=0;i<NUMCOLS;i++)
