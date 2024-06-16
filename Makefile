@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
 SPECINC=-I/home/nutria/mylocal/include
-EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1
+EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3
 
 # NOTES:
 # 	setsourcegradient.c is gone. You'll need to download it once again, as it showed the way cairo handles gradients
@@ -13,9 +13,33 @@ EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 se
 cairar: cairar.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
+# trying rotations
+rot0: rot0.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+rot1: rot1.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
 fr0: fr0.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 fr1: fr1.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
+# sat down and came up with some margin and const ideas.
+fr2: fr2.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+cl3: cl3.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+cl4: cl4.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+# How to make an arrow
+# actually not so intuitve because at each 
+# line_to, current position changes.
+arro: arro.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+# and now how to deal with slope
+arro2: arro2.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+arro3: arro3.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # but what can cairo do with pdf's?
@@ -31,6 +55,8 @@ sq: sq.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 bez0: bez0.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+bez1: bez1.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # arc2: messy three lines and a a circle
