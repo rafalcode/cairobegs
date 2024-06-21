@@ -2,7 +2,28 @@ CC=gcc
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
 SPECINC=-I/home/nutria/mylocal/include
-EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3
+EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 imagkcore0 core core_rfmod
+
+# wnat ot include imagemagick core libs 
+# the following the result of MagickCore-config --cflags --cppflags (cppflags are the exact same so you can leave them out).
+# you need to habe MagickCore-config in your $PATH of course
+# in Debian its' in here: /usr/lib/x86_64-linux-gnu/ImageMagick-6.9.11/bin-q16
+# # unfort. th
+IMAGKFLAGS=-I/usr/include/x86_64-linux-gnu/ImageMagick-6 -I/usr/include/ImageMagick-6 -fopenmp -DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16
+# IMAGKFLAGS2=-I/usr/include/ImageMagick-6
+IMAGKLIBS=-lMagickCore-6.Q16
+
+# taken from old core.c
+imagkcore0: imagkcore0.c
+	gcc ${CFLAGS} ${IMAGKFLAGS} -o $@ $^ ${IMAGKLIBS}
+	# gcc ${CFLAGS} ${IMAGKFLAGS} $^
+core: core.c
+	gcc ${CFLAGS} ${IMAGKFLAGS} -o $@ $^ ${IMAGKLIBS}
+core_rfmod: core_rfmod.c
+	gcc ${CFLAGS} ${IMAGKFLAGS} -o $@ $^ ${IMAGKLIBS}
+
+# prog: main.c
+#     gcc $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
 
 # NOTES:
 # 	setsourcegradient.c is gone. You'll need to download it once again, as it showed the way cairo handles gradients
