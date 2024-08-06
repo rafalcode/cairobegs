@@ -1,8 +1,10 @@
 CC=gcc
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
+CJPGLIBS=-lm -lcairo -lcairo_jpg -ljpeg # cairp +jpg libs
 SPECINC=-I/home/nutria/mylocal/include
-EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 imagkcore0 core core_rfmod
+SPECINC2=-I/usr/include/cairo
+EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj
 
 # wnat ot include imagemagick core libs 
 # the following the result of MagickCore-config --cflags --cppflags (cppflags are the exact same so you can leave them out).
@@ -44,11 +46,22 @@ fr0: fr0.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 fr1: fr1.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+# fr1 but outputting to pdf.
+pdfr1: pdfr1.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
+# I use 
+# a simplified time line via ingots (equally sized visually)
+ingot0: ingot0.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # sat down and came up with some margin and const ideas.
 fr2: fr2.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 cl3: cl3.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+# resize please
+cl3a: cl3a.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 cl4: cl4.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
@@ -226,6 +239,21 @@ pat: pat.c
 # as the name says
 lotsofrects: lotsofrects.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
+# as the name says
+rects00: rects00.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+rects01: rects01.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+rects02: rects02.c
+	${CC} ${CFLAGS} -o $@ $^ ${CJPGLIBS}
+# FOCus SQuare Jpg
+# # you use cc2.py to clikc on some focus spots of a large JPG and
+# this prog will cookie-cut squares from the image onto a PNG
+# current it only occupies a row, and does not take into accoutns corners or edges.
+focsqj: focsqj.c
+	${CC} ${CFLAGS} ${SPECINC2} -o $@ $^ ${CJPGLIBS}
+
 
 # as the name says
 rects0: rects0.c
