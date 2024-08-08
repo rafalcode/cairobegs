@@ -4,7 +4,7 @@ SPECLIBS=-lcairo -lm
 CJPGLIBS=-lm -lcairo -lcairo_jpg -ljpeg # cairp +jpg libs
 SPECINC=-I/home/nutria/mylocal/include
 SPECINC2=-I/usr/include/cairo
-EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj
+EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 strokefills linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj timstr0
 
 # wnat ot include imagemagick core libs 
 # the following the result of MagickCore-config --cflags --cppflags (cppflags are the exact same so you can leave them out).
@@ -53,6 +53,8 @@ pdfr1: pdfr1.c
 # I use 
 # a simplified time line via ingots (equally sized visually)
 ingot0: ingot0.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+timstr0: timstr0.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # sat down and came up with some margin and const ideas.
@@ -210,6 +212,8 @@ linestar: linestar.c
 
 # A polygon with some lines left out.
 pa1: pa1.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+strokefills: strokefills.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # An useless one which just outputs a blank image.
