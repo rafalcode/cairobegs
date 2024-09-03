@@ -561,16 +561,27 @@ int main (int argc, char *argv[])
         printf("%2.6f:%i ", secs[i].p, secs[i].t); 
     printf("\nNow where does our random point (%i) fall?\n", myrpoint);
 
+    int sidx, sidx2;
     for(i=0;i<2*hbarnums;i++) {
         if(myrpoint>secs[i].p)
             continue;
-        else
+        else {
+            sidx=i;
             break;
+        }
+    }
+    for(i=0;i<2*hbarnums;i++) {
+        if(myrpoint2>secs[i].p)
+            continue;
+        else {
+            sidx2=i;
+            break;
+        }
     }
     // we're depnding oon final value of i
-    printf("Ans. At line segment index=%i just before %2.6f of type %i, currlen=%2.6f prevlen=%2.6f\n", i, secs[i].p, secs[i].t, secs[i].p,secs[i-1].p); 
+    printf("Ans. At line segment index=%i just before %2.6f of type %i, currlen=%2.6f prevlen=%2.6f\n", i, secs[sidx].p, secs[sidx].t, secs[sidx].p,secs[i-1].p); 
+    printf("Ans. At line segment index=%i just before %2.6f of type %i, currlen=%2.6f prevlen=%2.6f\n", i, secs[sidx2].p, secs[sidx2].t, secs[sidx2].p,secs[i-1].p); 
     // printf("SoAns. At line segment index=%i just before %2.6f of type %i\n", i, secs[i].p, secs[i].t); 
-    int sidx=i;
     
     int totpoints = hbarnums*VBARNUMS;
     pos_t *lb=calloc(totpoints, sizeof(pos_t)); /* ori: origin, lb, last bar, */
@@ -610,7 +621,7 @@ int main (int argc, char *argv[])
     // addarr(cr, lb, VBARNUMS, hbarnums);
 
     /* Write output and clean up */
-    cairo_surface_write_to_png (surface, "grill2.png");
+    cairo_surface_write_to_png (surface, "grill22.png");
     cairo_destroy (cr);
     cairo_surface_destroy (surface);
     free(lb);
