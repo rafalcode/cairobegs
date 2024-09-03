@@ -56,3 +56,4 @@ A temptation would be to just plot the points and put a line through them. No!
 The "winding road" is normalized to 100 total length, a cumulative array is built in terms of total value 100, defining the segments along the path and whether they are line to right (LINE2R)
 curves at right (CURVER) etc. There are five of these for the four segment types. Why five? Well the first (0) is nothing, used for the first segment because the segmetns are typed by their endpoints.
 i.e. the .p value of type CURVER is the end poit of an arc, not the beginning point. I have to admit, it's all a bit tortuous, but I did get it working to a basic level. However, it is only for 1 point!
+One tedious thing is cairo_arc, and cairo_arc_negative, quite confusing. See cairo notes in pc_jottings.
