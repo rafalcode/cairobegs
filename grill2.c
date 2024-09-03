@@ -40,6 +40,174 @@ typedef struct /* pos_t */
     float x, y;
 } pos_t;
 
+void grillit3(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, int vbarnums, int hbarnums, float radi, float tglen, int myrpoint)
+{
+    // taking up from grillit2, cleaning up: grillet3, is the one that finishishes fo the path.
+    // we need two procs, one for a full flow and another for partial flows.
+    // // the orginal grillit is good for full flows
+    int i;
+
+    // numb full flows
+    int ff=hbarnums-1-(sidx-1)/2;
+    float uradi=OURMAX*radi/tglen; // radi in our units.
+    printf("num remaining full flows=%i\n", ff); 
+
+    for(i=ff;i<hbarnums-1;i++) {
+        // beware a tricky aspect of cairo_arc() it *does* move point forward to where it ends, so no need to move_to's
+        // however, you need to get start and end angle right. For this case I invoked the negarc version and it worked. be careful!
+        if(i%2==1) {
+            cairo_line_to(cr, lb[vbarnums*i].x, lb[vbarnums*i].y);
+            cairo_stroke(cr);
+            cairo_arc_negative(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2, M_PI_2);
+            cairo_stroke(cr);
+        } else {
+            cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y);
+            cairo_stroke(cr);
+            cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y+radi, radi, -M_PI_2, M_PI_2);
+            cairo_stroke(cr);
+        }
+    }
+
+    /*
+    float semifrac, widthfrac, widthfracp // widthfrac in pixels; 
+    if(secs[sidx].t==CURVEL) {
+        printf("CURVEL!\n"); 
+        cairo_arc_negative(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2-semifrac*M_PI, -3*M_PI_2);
+        cairo_stroke(cr);
+    } else if(secs[sidx].t==CURVER) {
+        printf("CURVER!\n"); 
+        cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y+radi, radi, -M_PI_2+semifrac*M_PI, M_PI);
+        cairo_stroke(cr);
+    } else if(secs[sidx].t==LINE2L) {
+        printf("LINE2L!\n"); 
+        printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
+        printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
+        widthfrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        // widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        printf("widthfrac=%2.6f widthfracp(pixels)=%2.6f\n", widthfrac, widthfracp); 
+        cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x-widthfracp, lb[vbarnums*i].y);
+        cairo_stroke(cr);
+    } else if(secs[sidx].t==LINE2R) {
+        printf("LINE2R!\n"); 
+        printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
+        printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
+        widthfrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        printf("widthfrac=%2.6f widthfracp(pixels)=%2.6f\n", widthfrac, widthfracp); 
+        cairo_line_to(cr, lb[vbarnums*i].x+widthfracp, lb[vbarnums*i].y);
+        cairo_stroke(cr);
+    }
+    */
+
+    // we're examining the end points here. There's a reliance on a ciaro secondary effect.
+    // so if it's a line, we must cut backwards, if curve move forwards! I know, already so complicated!
+    /*
+    if(i%2==1) {
+        // cairo_line_to(cr, lb[vbarnums*i].x, lb[vbarnums*i].y);
+        printf("Endpoint of ff = %2.6f,%2.6f type %i\n", lb[vbarnums*i].x, lb[vbarnums*i].y, secs[sidx].t);
+        cairo_arc(cr, lb[vbarnums*i].x, lb[vbarnums*i].y, 5, 0, 2*M_PI);
+        cairo_fill(cr);
+    } else {
+        printf("Endpoint of ff = %2.6f,%2.6f type %i\n", lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y,  secs[sidx].t);
+        cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y, 5, 0, 2*M_PI);
+        cairo_fill(cr);
+    }
+    */
+
+}
+
+void grillit2a(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, int vbarnums, int hbarnums, float radi, float tglen, int myrpoint)
+{
+    // taking up from grillit2, cleaning up: grillet3, is the one that finishishes fo the path.
+    // we need two procs, one for a full flow and another for partial flows.
+    // // the orginal grillit is good for full flows
+    int i;
+
+    // numb full flows
+    int ff=(sidx-1)/2;
+    printf("num full flows=%i\n", ff); 
+
+    cairo_move_to(cr, lb[0].x, lb[0].y);
+    for(i=0;i<ff;i++) {
+        // beware a tricky aspect of cairo_arc() it *does* move point forward to where it ends, so no need to move_to's
+        // however, you need to get start and end angle right. For this case I invoked the negarc version and it worked. be careful!
+        if(i%2==1) {
+            cairo_line_to(cr, lb[vbarnums*i].x, lb[vbarnums*i].y);
+            cairo_arc_negative(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2, M_PI_2);
+        } else {
+            cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y);
+            cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y+radi, radi, -M_PI_2, M_PI_2);
+        }
+    }
+    float uradi=OURMAX*radi/tglen; // radi in our units.
+    printf("radi=%2.6f, uradi=%2.6f usemi %2.6f\n", radi, uradi, uradi*M_PI);
+    // cairo_stroke(cr);
+    float semifrac, widthfrac, widthfracp /* widthfrac in pixels */;
+    if(secs[sidx].t==CURVEL) {
+        printf("CURVEL!\n"); 
+        // cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x-hbarsz, lb[vbarnums*i+vbarnums-1].y);
+        cairo_line_to(cr, lb[vbarnums*i].x, lb[vbarnums*i].y); // return width
+        printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
+        printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
+        // printf("fraction of a semicircle=%2.6f\n", ((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p));
+        semifrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        printf("fraction of a semicircle=%2.6f\n", semifrac);
+        printf("Therefore angle in rads=%2.6f in degrees=%2.6f\n", semifrac*M_PI, semifrac*180);
+        // cairo_arc_negative(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2, -M_PI_2+semifrac*M_PI);
+        // cairo_arc_negative(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2, (1-semifrac)*M_PI);
+        cairo_arc_negative(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2, -M_PI_2-semifrac*M_PI);
+        // cairo_arc(cr, lb[vbarnums*i].x, lb[vbarnums*i].y+radi, radi, -M_PI_2, -M_PI_2+semifrac*M_PI);
+        cairo_stroke(cr);
+        // cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y, 5, 0, 2*M_PI);
+        // cairo_fill(cr);
+        // cairo_arc(cr, lb[vbarnums*i].x, lb[vbarnums*i].y, 5, 0, 2*M_PI);
+        // cairo_fill(cr);
+    } else if(secs[sidx].t==CURVER) {
+        printf("CURVER!\n"); 
+        cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y);
+        semifrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        printf("Therefore angle in rads=%2.6f in degrees=%2.6f\n", semifrac*M_PI, semifrac*180);
+        cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y+radi, radi, -M_PI_2, -M_PI_2+semifrac*M_PI);
+        cairo_stroke(cr);
+    } else if(secs[sidx].t==LINE2L) {
+        printf("LINE2L!\n"); 
+        printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
+        printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
+        widthfrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        // widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        printf("widthfrac=%2.6f widthfracp(pixels)=%2.6f\n", widthfrac, widthfracp); 
+        cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x-widthfracp, lb[vbarnums*i].y);
+        cairo_stroke(cr);
+    } else if(secs[sidx].t==LINE2R) {
+        printf("LINE2R!\n"); 
+        printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
+        printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
+        widthfrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        printf("widthfrac=%2.6f widthfracp(pixels)=%2.6f\n", widthfrac, widthfracp); 
+        cairo_line_to(cr, lb[vbarnums*i].x+widthfracp, lb[vbarnums*i].y);
+        cairo_stroke(cr);
+    }
+
+    // we're examining the end points here. There's a reliance on a ciaro secondary effect.
+    // so if it's a line, we must cut backwards, if curve move forwards! I know, already so complicated!
+    /*
+    if(i%2==1) {
+        // cairo_line_to(cr, lb[vbarnums*i].x, lb[vbarnums*i].y);
+        printf("Endpoint of ff = %2.6f,%2.6f type %i\n", lb[vbarnums*i].x, lb[vbarnums*i].y, secs[sidx].t);
+        cairo_arc(cr, lb[vbarnums*i].x, lb[vbarnums*i].y, 5, 0, 2*M_PI);
+        cairo_fill(cr);
+    } else {
+        printf("Endpoint of ff = %2.6f,%2.6f type %i\n", lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y,  secs[sidx].t);
+        cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y, 5, 0, 2*M_PI);
+        cairo_fill(cr);
+    }
+    */
+
+}
+
 void grillit2(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, int vbarnums, int hbarnums, float radi, float tglen, int myrpoint)
 {
     // another type of grillit
@@ -91,7 +259,6 @@ void grillit2(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, 
         cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y);
         semifrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
         printf("Therefore angle in rads=%2.6f in degrees=%2.6f\n", semifrac*M_PI, semifrac*180);
-        printf("Therefore angle in rads=%2.6f\n", semifrac*M_PI);
         cairo_arc(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y+radi, radi, -M_PI_2, -M_PI_2+semifrac*M_PI);
         cairo_stroke(cr);
     } else if(secs[sidx].t==LINE2L) {
@@ -99,13 +266,18 @@ void grillit2(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, 
         printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
         printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
         widthfrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
+        // widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
         widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        printf("widthfrac=%2.6f widthfracp(pixels)=%2.6f\n", widthfrac, widthfracp); 
         cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x-widthfracp, lb[vbarnums*i].y);
         cairo_stroke(cr);
     } else if(secs[sidx].t==LINE2R) {
         printf("LINE2R!\n"); 
+        printf("myrpoint less prev=%2.6f\n", (float)myrpoint - secs[sidx-1].p);
+        printf("secs[sidx].p less prev p=%2.6f\n", secs[sidx].p - secs[sidx-1].p);
         widthfrac=((float)myrpoint - secs[sidx-1].p) / (secs[sidx].p - secs[sidx-1].p);
         widthfracp = widthfrac*(lb[vbarnums*i+vbarnums-1].x - lb[vbarnums*i].x); //yes, I know, I thought vbarnums*i would be operated on, but then it would be an addition.
+        printf("widthfrac=%2.6f widthfracp(pixels)=%2.6f\n", widthfrac, widthfracp); 
         cairo_line_to(cr, lb[vbarnums*i].x+widthfracp, lb[vbarnums*i].y);
         cairo_stroke(cr);
     }
@@ -274,6 +446,8 @@ int main (int argc, char *argv[])
     cairo_set_line_width (cr, LWID);
     // grillit(cr, lb, VBARNUMS, hbarnums, radi); /// colours whole grill
     grillit2(cr, lb, sidx, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint);
+    cairo_set_source_rgb(cr, 0.2, 0.9, 0.75);
+    grillit3(cr, lb, sidx, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint);
 
     // adding arrows in an effort to emphasise direction
     // not the only option, could also do alternative background shades ...
