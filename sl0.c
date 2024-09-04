@@ -2,8 +2,12 @@
  * and it's not called bezier at all, but curve_to() 
  * this zero version of bez, is the eample in
  * https://www.cairographics.org/samples/
+ *
+ * A major mistake you can make is to send a line to the rad*sin(angle) just like that.
+ * NO, it must be done relative to the point you moved to.
 */
 #include <cairo/cairo.h>
+#include <stdio.h>
 #include <math.h>
 
 #define IW 640. // image/canvas width
@@ -33,20 +37,22 @@ int main (int argc, char *argv[])
     cairo_line_to (cr, x3, y3);
 
     // try with slope or angle
-    printf("cos pi/4=%2.4f\n", sin(M_PI/6.));
+    printf("sin pi/4=%2.4f\n", sin(M_PI_4));
+    printf("cos pi/4=%2.4f\n", cos(M_PI_4));
     double x2=radi*cos(M_PI_4);
     double y2=radi*sin(M_PI_4);
     cairo_move_to (cr, x, y);
-    cairo_line_to (cr, x2, y2);
-    
-    cairo_move_to (cr, x, y);
-    cairo_line_to (cr, x2, y2);
+    cairo_line_to (cr, x+x2, y+y2);
+    cairo_stroke (cr);
     
     // try with slope or angle
+    cairo_set_source_rgba(cr, 0.35, 0.6, 0.75, 0.6);
+    printf("sin pi/6=%2.4f\n", sin(M_PI/6.));
+    printf("cos pi/6=%2.4f\n", cos(M_PI/6.));
     double x4=radi*cos(M_PI/6.);
     double y4=radi*sin(M_PI/6.);
     cairo_move_to (cr, x, y);
-    cairo_line_to (cr, x4, y4);
+    cairo_line_to (cr, x+x4, y+y4);
     
     cairo_stroke (cr);
     
