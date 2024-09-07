@@ -6,6 +6,8 @@
 
 #define wha 60
 #define wha2 20
+#define ANG0 M_PI*1.07
+#define ANG1 M_PI*1.07+M_PI_2
 
 int main (int argc, char *argv[])
 {
@@ -23,6 +25,10 @@ int main (int argc, char *argv[])
 
     float x1=w/4, y1=h/4;
     float x2=x1+300, y2=y1+200;
+    float slo=(y2-y1)/(x2-x1);
+    printf("atan=%2.6f\n", atan(slo)); 
+    printf("perp atan=%2.6f\n", atan(-1/slo));  // yes this is how
+    float atn= atan(slo); 
     cairo_move_to (cr, x1, y1);
     cairo_line_to(cr, x2, y2);
  // ref. https://stackoverflow.com/questions/10316180/how-to-calculate-the-coordinates-of-a-arrowhead-based-on-the-arrow
@@ -52,6 +58,13 @@ int main (int argc, char *argv[])
     cairo_line_to (cr, px2, py2);
 
     cairo_stroke (cr);
+
+    cairo_move_to (cr, x1+80, y1);
+    cairo_line_to(cr, x2+80, y2);
+    cairo_rel_line_to(cr, 50*cos(ANG0), 50*sin(ANG0));
+    cairo_rel_line_to(cr, 50*cos(ANG1), 50*sin(ANG1));
+    cairo_stroke (cr);
+
 
     cairo_destroy (cr);
 
