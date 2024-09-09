@@ -28,7 +28,7 @@ int main (int argc, char *argv[])
     float slo=(y2-y1)/(x2-x1);
     printf("atan=%2.6f\n", atan(slo)); 
     printf("perp atan=%2.6f\n", atan(-1/slo));  // yes this is how
-    float atn= atan(slo); 
+    float atn= atan(-1/slo); 
     cairo_move_to (cr, x1, y1);
     cairo_line_to(cr, x2, y2);
  // ref. https://stackoverflow.com/questions/10316180/how-to-calculate-the-coordinates-of-a-arrowhead-based-on-the-arrow
@@ -65,6 +65,11 @@ int main (int argc, char *argv[])
     cairo_rel_line_to(cr, 50*cos(ANG1), 50*sin(ANG1));
     cairo_stroke (cr);
 
+
+    cairo_move_to (cr, x1-80, y1);
+    cairo_line_to(cr, x2-80, y2);
+    cairo_rel_line_to(cr, 50*cos(atn), 50*sin(atn));
+    cairo_stroke (cr);
 
     cairo_destroy (cr);
 
