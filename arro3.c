@@ -8,6 +8,7 @@
 #define wha2 20
 #define ANG0 M_PI*1.07
 #define ANG1 M_PI*1.07+M_PI_2
+#define LWID 3
 
 int main (int argc, char *argv[])
 {
@@ -21,14 +22,15 @@ int main (int argc, char *argv[])
 
     //arrow
     cairo_set_source_rgb (cr, 0, 0, 0);
-    cairo_set_line_width (cr, 5.0);
+    cairo_set_line_width (cr, LWID);
 
     float x1=w/4, y1=h/4;
     float x2=x1+300, y2=y1+200;
     float slo=(y2-y1)/(x2-x1);
     printf("atan=%2.6f\n", atan(slo)); 
-    printf("perp atan=%2.6f\n", atan(-1/slo));  // yes this is how
-    float atn= atan(-1/slo); 
+    printf("perp atan=%2.6f\n", atan(-1/slo));  // yes this is how the angle of the perpendicular is worked out.
+    float atn= atan(slo); 
+    float atp= atan(-1/slo); 
     cairo_move_to (cr, x1, y1);
     cairo_line_to(cr, x2, y2);
  // ref. https://stackoverflow.com/questions/10316180/how-to-calculate-the-coordinates-of-a-arrowhead-based-on-the-arrow
@@ -55,7 +57,7 @@ int main (int argc, char *argv[])
     printf("P2=%2.2f,%2.2f\n", px2, py2); 
     cairo_move_to (cr, px1, py1);
     cairo_line_to (cr, x2, y2);
-    cairo_line_to (cr, px2, py2);
+    // cairo_line_to (cr, px2, py2);
 
     cairo_stroke (cr);
 
@@ -66,9 +68,39 @@ int main (int argc, char *argv[])
     cairo_stroke (cr);
 
 
+    // first line x-wise
     cairo_move_to (cr, x1-80, y1);
     cairo_line_to(cr, x2-80, y2);
-    cairo_rel_line_to(cr, 50*cos(atn), 50*sin(atn));
+    cairo_rel_line_to(cr, 50*cos(atp), 50*sin(atp));
+    cairo_stroke (cr);
+
+    // fourth: this is the way to generate a line with the same slop as another one:
+    // the problem I have is that I don't a pointy arrow but rather a blunt one.
+    // so, to get the point you need to NOT start at the point of arrow 
+    // but on one of the two tails, then line to point and then line to other tail.
+    // traight line of a certain slope:
+    cairo_move_to (cr, x1+240, y1);
+    cairo_rel_line_to(cr, +80*cos(atn), +80*sin(atn));
+
+    // so how to get the arrowhead now?
+
+    // upper part of arrowhead:
+    // cairo_move_to (cr, x1+240+80*cos(atn), y1+80*sin(atn));
+    // cairo_rel_line_to(cr, 40*cos(atn-M_PI+.3), 40*sin(atn-M_PI+.3));
+    //back to point
+    // cairo_move_to (cr, x1+240+80*cos(atn), y1+80*sin(atn));
+    // cairo_rel_line_to(cr, 40*cos(atn+M_PI-.3), 40*sin(atn+M_PI-.3));
+
+    // or:
+    float qx1=x1+240+80*cos(atn), qy1=y1+80*sin(atn);
+    float qx2=qx1+ 40*cos(atn-M_PI+.5), qy2= qy1 +40*sin(atn-M_PI+.5);
+    float qx3=qx1+ 40*cos(atn+M_PI-.3), qy3= qy1 +40*sin(atn+M_PI-.3);
+    cairo_move_to(cr,qx2,qy2);
+    cairo_line_to(cr,qx1,qy1);
+    cairo_line_to(cr,qx3,qy3);
+    //
+
+
     cairo_stroke (cr);
 
     cairo_destroy (cr);

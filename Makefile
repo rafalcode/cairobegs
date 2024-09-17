@@ -4,7 +4,7 @@ SPECLIBS=-lcairo -lm
 CJPGLIBS=-lm -lcairo -lcairo_jpg -ljpeg # cairp +jpg libs
 SPECINC=-I/home/nutria/mylocal/include
 SPECINC2=-I/usr/include/cairo
-EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 strokefills linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 arro4 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj timstr0 timstr1 timstr2 tu tu2 tu3 gribz0 gribz1 gridrw grill func0 arro3a arro6 rour grill0 grill2 grill3 grill22 grillpa grid2v bez2 sl0 sl1 sl1
+EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 strokefills linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 arro4 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj timstr0 timstr1 timstr2 tu tu2 tu3 gribz0 gribz1 gridrw grill func0 arro3a arro6 rour grill0 grill2 grill3 grill22 grillpa grid2v bez2 sl0 sl1 sl1 arrow3
 
 # wnat ot include imagemagick core libs 
 # the following the result of MagickCore-config --cflags --cppflags (cppflags are the exact same so you can leave them out).
@@ -114,6 +114,9 @@ arro: arro.c
 arro2: arro2.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 arro3: arro3.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+# this is a cleaner version of arro3.c using slopes and cos and sine:
+arrow3: arrow3.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 arro3a: arro3a.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
