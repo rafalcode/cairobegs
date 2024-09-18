@@ -45,7 +45,7 @@ int main (int argc, char *argv[])
     float hbarsz=dh/HBARNUMS; // y direction.
     float radi=hbarsz/2.;
     float hbo4=hbarsz/4.; // hbarsz over 4.
-    float dwr2=dw-radi*2;
+    float dwr2=dw-radi*2; // the curve arounds
     int totpoints = HBARNUMS*2;
     pos_t *lb=calloc(totpoints, sizeof(pos_t)); /* ori: origin, lb, last bar, */
 
