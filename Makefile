@@ -1,10 +1,12 @@
 CC=gcc
+CPP=g++
 CFLAGS=-g -Wall
 SPECLIBS=-lcairo -lm
 CJPGLIBS=-lm -lcairo -lcairo_jpg -ljpeg # cairp +jpg libs
 SPECINC=-I/home/nutria/mylocal/include
 SPECINC2=-I/usr/include/cairo
-EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 strokefills linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 arro4 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj timstr0 timstr1 timstr2 tu tu2 tu3 gribz0 gribz1 gridrw grill func0 arro3a arro6 rour grill0 grill2 grill3 grill22 grillpa grid2v bez2 sl0 sl1 sl1 arrow3 boxb
+SPECINC3=-I/usr/include/cairo -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/pixman-1
+EXECUTABLES=sq bez0 arc2 arc3 binodots binodot2 spir spir2 spir2b spir3 spir4 sevshap lines lintx hypdots pa1 strokefills linestar grad ssg ssl lenlines lenlin2 pat lotsofrects rects2 lintx2 rect16 rectnam cl2 rw1 rw2 linev rectcolcat imgen foldr3 strips str0 lin3 lin4 spir4b pdf2 barbr cirs0 cirnam pdf1 pdf2 pdf0 fr0 fr1 fr2 ingot0 cl3 cl4 bez1 rot0 rot1 arro arro2 arro3 arro4 imagkcore0 core core_rfmod cl3a pdfr1 rects00 rects01 rects02 focsqj timstr0 timstr1 timstr2 tu tu2 tu3 gribz0 gribz1 gridrw grill func0 arro3a arro6 rour grill0 grill2 grill3 grill22 grillpa grid2v bez2 sl00 sl0 sl1 sl1 arrow3 boxb sl10
 
 # wnat ot include imagemagick core libs 
 # the following the result of MagickCore-config --cflags --cppflags (cppflags are the exact same so you can leave them out).
@@ -142,9 +144,15 @@ bez1: bez1.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 bez2: bez2.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
 sl0: sl0.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+# sl00 actually a refined version
+sl00: sl00.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 sl1: sl1.c
+	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+sl10: sl10.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 
 # arc2: messy three lines and a a circle
@@ -368,6 +376,10 @@ rour: rour.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
 boxb: boxb.c
 	${CC} ${CFLAGS} -o $@ $^ ${SPECLIBS}
+
+# an idea for random walks
+sici0: sici0.cpp
+	${CPP} ${CFLAGS} -o $@ $^ ${SPECINC3} ${SPECLIBS}
 
 .PHONY: clean
 

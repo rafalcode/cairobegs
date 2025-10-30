@@ -15,9 +15,10 @@ Failry related these two, rectnam is better. However the interrect spaces are de
 They should be independent, right? The side margins acould be massive but the inter rects should be the same.
 So it does do to have rectas inside rects really. Actaully I've done this already for the 96 well imitation
 
-# paths are often cleared, watch it!
-use the preserve versionsi, i.e.
+# At least with stroke op, and may be more, paths are often cleared, watch it!
+Answer is to use the "preserve versions", i.e. cairo_stroke_preserve()
 "A drawing operator that strokes the current path according to the current line width, line join, line cap, and dash settings. After cairo_stroke(), the current path will be cleared from the cairo context."
+I also find that if you try and change colour, it will have no effect, as the original colour is preserved.
 
 # cl3.c & fr2.c
 cl3 generates a surface from external png, easy enough. Only slightly bigger, OK. But fr2.c actually takes a clip (confirmed) of external png and places it in selected spot. Want a mixture of the two.
@@ -57,3 +58,6 @@ The "winding road" is normalized to 100 total length, a cumulative array is buil
 curves at right (CURVER) etc. There are five of these for the four segment types. Why five? Well the first (0) is nothing, used for the first segment because the segmetns are typed by their endpoints.
 i.e. the .p value of type CURVER is the end poit of an arc, not the beginning point. I have to admit, it's all a bit tortuous, but I did get it working to a basic level. However, it is only for 1 point!
 One tedious thing is cairo_arc, and cairo_arc_negative, quite confusing. See cairo notes in pc_jottings.
+
+# reading jpg images
+Thi is not native to cairo ... but Bernhard Fischer can developed soem functions for doing so. Requires a manual compile.
