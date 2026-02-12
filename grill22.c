@@ -40,7 +40,7 @@ typedef struct /* pos_t */
     float x, y;
 } pos_t;
 
-void grillit4(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, int vbarnums, int hbarnums, float radi, float tglen, int myrpoint)
+void grillit4(cairo_t *cr, pos_t *lb, int sidx, int sidx2 /* the 2 secs index */, d_t *secs, int vbarnums, int hbarnums, float radi, float tglen, int myrpoint, int myrpoint2)
 {
     // taking up from grillit2, cleaning up: grillet3, is the one that finishishes fo the path.
     // we need two procs, one for a full flow and another for partial flows.
@@ -48,6 +48,7 @@ void grillit4(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, 
 
     // first the partial shape that has to be filled. ff is the row.
     int ff=(sidx-1)/2;
+    int ff2=(sidx2-1)/2;
 
     float semifrac, widthfrac, widthfracp, widthfracp2;
     if(secs[sidx].t==CURVEL) {
@@ -101,6 +102,7 @@ void grillit4(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, 
     printf("num remaining full flows=%i\n", hbarnums-1-ff); 
 
     int i, starti;
+    /*
     // int starti=(secs[sidx].t==CURVER | secs[sidx].t==CURVEL)? ff+1:ff;
     // not very enamoured of this if 
     if(secs[sidx].t==CURVER) {
@@ -132,7 +134,7 @@ void grillit4(cairo_t *cr, pos_t *lb, int sidx /* the secs index */, d_t *secs, 
         cairo_line_to(cr, lb[vbarnums*i+vbarnums-1].x, lb[vbarnums*i+vbarnums-1].y);
     }
     cairo_stroke(cr);
-
+    */
 
     // we're examining the end points here. There's a reliance on a ciaro secondary effect.
     // so if it's a line, we must cut backwards, if curve move forwards! I know, already so complicated!
@@ -607,14 +609,14 @@ int main (int argc, char *argv[])
         }
 
     // cairo_set_source_rgba(cr, 0.65, 0.8, 0.45, 0.6);
-    cairo_set_source_rgb(cr, 0.65, 0.8, 0.45);
+    cairo_set_source_rgb(cr, 0.65, 0.4, 0.9);
     cairo_set_line_width (cr, LWID);
     // grillit(cr, lb, VBARNUMS, hbarnums, radi); /// colours whole grill
     grillit2(cr, lb, sidx, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint);
-    cairo_set_source_rgb(cr, 0.6, 0.6, 0.6);
-    // grillit4(cr, lb, sidx, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint, myrpoint2);
-    cairo_set_source_rgb(cr, 0.8, 0.7, 0.5);
-    grillit3(cr, lb, sidx, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint2);
+    cairo_set_source_rgb(cr, 0.2, 0.9, 0.4);
+    grillit4(cr, lb, sidx, sidx2, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint, myrpoint2);
+    // cairo_set_source_rgb(cr, 0.8, 0.3, 0.5);
+    // grillit3(cr, lb, sidx2, secs, VBARNUMS, hbarnums, radi, tglen, myrpoint2);
 
     // adding arrows in an effort to emphasise direction
     // not the only option, could also do alternative background shades ...
