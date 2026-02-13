@@ -42,7 +42,7 @@ int main (int argc, char *argv[])
 
     float cs=cos(rads);
     float sn=sin(rads);
-    printf("cos, sin, tan rads=%2.4f %2.4f %2.4f\n", cs, sn, tn);
+    printf("cos, sin rads=%2.4f %2.4f\n", cs, sn);
 
     cairo_set_source_rgba(cr, 0.65, 0.8, 0.45, 0.6);
     cairo_move_to (cr, x-sl2*cs, y+sl2*sn);

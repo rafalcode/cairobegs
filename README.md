@@ -61,3 +61,7 @@ One tedious thing is cairo_arc, and cairo_arc_negative, quite confusing. See cai
 
 # reading jpg images
 Thi is not native to cairo ... but Bernhard Fischer can developed soem functions for doing so. Requires a manual compile.
+
+# rectarrang.c
+I've doe this alot of times. But I got into a frazzle once again over hbarnums and vbarnums. vbarnum are vertical bars that span the whole height of the canvas, so they can be
+seen as columns, so to move, you move in the x direction. We leave this for j to do. i advances up to hbarnums, but gets multiplied by vbarnums each time.
